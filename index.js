@@ -24,7 +24,8 @@ app.use(express.json())
 
 app.get("/", function(req, res){
   res.render('index', {
-    settings: settingsBill.getSettings()
+    settings: settingsBill.getSettings(),
+    totals: settingsBill.totals()
     });
 });
 
@@ -43,11 +44,15 @@ res.redirect('/');
 });
 
 app.post('/action', function(req,res){
+   console.log();
 
+   settingsBill.recordAction(req.body.actionType)
+
+  res.redirect('/');
 });
 
 app.get("/actions", function(req, res){
-	
+	res.render('actions');
 });
 
 app.get("/actions/:type", function(req, res){
